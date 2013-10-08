@@ -11,6 +11,7 @@ require 'rspec'
 
 require 'rails/all'
 require 'active_record'
+require 'active_support'
 require 'rspec/rails'
 # require 'capybara/rspec'
 require 'timecop'
