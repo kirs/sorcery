@@ -12,8 +12,6 @@ describe ApplicationController do
   after(:all) do
     # ActiveRecord::Migrator.rollback("#{Rails.root}/db/migrate/activity_logging")
 
-    # ActiveRecord::Base.connection.drop_table :users
-
     sorcery_controller_property_set(:register_login_time, true)
     sorcery_controller_property_set(:register_logout_time, true)
     sorcery_controller_property_set(:register_last_activity_time, true)
@@ -59,6 +57,8 @@ describe ApplicationController do
     end
 
     it "should log last activity time when logged in" do
+      sorcery_controller_property_set(:register_last_activity_time, true)
+
       login_user
       now = Time.now.in_time_zone
       get :some_action
