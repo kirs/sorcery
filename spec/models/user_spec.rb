@@ -25,6 +25,7 @@ describe "User with no submodules (core)" do
   describe User, "external users" do
     before(:all) do
       ActiveRecord::Migrator.migrate("#{Rails.root}/db/migrate/external")
+      User.reset_column_information
       sorcery_reload!()
     end
 

@@ -6,6 +6,7 @@ require 'rails_app/app/controllers/application_controller'
 describe ApplicationController do
   before(:all) do
     ActiveRecord::Migrator.migrate("#{Rails.root}/db/migrate/activity_logging")
+    User.reset_column_information
   end
 
   after(:all) do
