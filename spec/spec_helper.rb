@@ -56,7 +56,6 @@ RSpec.configure do |config|
 
   #ActiveRecord::Base.logger = Logger.new(STDOUT)
   config.before(:suite) do
-    puts "rails root: #{Rails.root}"
     ActiveRecord::Migrator.migrate("#{Rails.root}/db/migrate/core")
   end
 
