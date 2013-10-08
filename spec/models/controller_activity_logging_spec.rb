@@ -54,7 +54,6 @@ describe ApplicationController do
       logout_user
       User.first.last_logout_at.should_not be_nil
 
-      puts User.first.last_logout_at.class.inspect
       User.first.last_logout_at.to_s(:db).should >= now.to_s(:db)
       User.first.last_logout_at.to_s(:db).should <= (now+2).to_s(:db)
     end
@@ -63,8 +62,12 @@ describe ApplicationController do
       login_user
       now = Time.now.in_time_zone
       get :some_action
-      User.first.last_activity_at.to_s(:db).should >= now.to_s(:db)
-      User.first.last_activity_at.to_s(:db).should <= (now+2).to_s(:db)
+
+      last_activity_at = User.first.last_activity_at
+
+      last_activity_at.should be_present
+      last_activity_at.to_s(:db).should >= now.to_s(:db)
+      last_activity_at.to_s(:db).should <= (now+2).to_s(:db)
     end
 
     it "should log last IP address when logged in" do
