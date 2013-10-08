@@ -53,6 +53,8 @@ describe ApplicationController do
       now = Time.now.in_time_zone
       logout_user
       User.first.last_logout_at.should_not be_nil
+
+      puts User.first.last_logout_at.class.inspect
       User.first.last_logout_at.to_s(:db).should >= now.to_s(:db)
       User.first.last_logout_at.to_s(:db).should <= (now+2).to_s(:db)
     end
