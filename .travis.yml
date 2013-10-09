@@ -6,6 +6,8 @@ notifications:
   email:
     - shatrov@me.com
 
+services: mongodb
+
 script:
   - "bundle exec rake spec SPEC=spec/models"
   - "SORCERY_ORM=mongoid bundle exec rake spec SPEC=spec/mongoid"
