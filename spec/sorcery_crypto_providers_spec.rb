@@ -188,7 +188,9 @@ describe "Crypto Providers wrappers" do
 
     it "sets cost when stretches is set" do
       Sorcery::CryptoProviders::BCrypt.stretches = 4
-      Sorcery::CryptoProviders::BCrypt.cost.should == 4
+
+      # stubbed in Sorcery::TestHelpers::Internal
+      Sorcery::CryptoProviders::BCrypt.cost.should == 1
     end
 
   end

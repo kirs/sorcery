@@ -10,26 +10,20 @@ ENV["RAILS_ENV"] ||= 'test'
 require 'rspec'
 
 require 'rails/all'
-require 'active_record'
-require 'active_support'
 require 'rspec/rails'
 # require 'capybara/rspec'
 require 'timecop'
-
 require 'sorcery'
 
 require "rails_app/config/environment"
 
-# require File.join(File.dirname(__FILE__), '..','app','models','user')
-# require File.join(File.dirname(__FILE__), '..','app','models','authentication')
+require 'orm/active_record'
 
 class TestUser < ActiveRecord::Base
-  # authenticates_with_sorcery!
+  authenticates_with_sorcery!
 end
 
-class TestMailer < ActionMailer::Base
-
-end
+class TestMailer < ActionMailer::Base;end
 
 
 # Requires supporting files with custom matchers and macros, etc,
@@ -61,7 +55,7 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-    # ActiveRecord::Migrator.rollback("#{Rails.root}/db/migrate/core")
+    ActiveRecord::Migrator.rollback("#{Rails.root}/db/migrate/core")
   end
 
   config.include ::Sorcery::TestHelpers::Internal

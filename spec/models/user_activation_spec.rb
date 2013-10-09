@@ -10,7 +10,7 @@ describe "User with activation submodule" do
   end
 
   after(:all) do
-    # ActiveRecord::Migrator.rollback("#{Rails.root}/db/migrate/activation")
+    ActiveRecord::Migrator.rollback("#{Rails.root}/db/migrate/activation")
   end
 
   it_behaves_like "rails_3_activation_model"

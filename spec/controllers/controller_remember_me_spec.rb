@@ -16,7 +16,7 @@ describe ApplicationController do
     end
 
     after(:all) do
-      # ActiveRecord::Migrator.rollback("#{Rails.root}/db/migrate/remember_me")
+      ActiveRecord::Migrator.rollback("#{Rails.root}/db/migrate/remember_me")
     end
 
     after(:each) do
