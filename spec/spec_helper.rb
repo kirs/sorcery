@@ -13,27 +13,20 @@ require 'rspec'
 
 require 'rails/all'
 require 'rspec/rails'
-# require 'capybara/rspec'
 require 'timecop'
-require 'sorcery'
 
 require "rails_app/config/environment"
 
-require 'orm/active_record'
-
-class TestUser < ActiveRecord::Base
-  authenticates_with_sorcery!
-end
+require "orm/#{SORCERY_ORM}"
 
 class TestMailer < ActionMailer::Base;end
-
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 RSpec.configure do |config|
-  # config.include RSpec::Rails::ControllerExampleGroup, :example_group => { :file_path => /controller(.)*_spec.rb$/ }
+  config.include RSpec::Rails::ControllerExampleGroup, :example_group => { :file_path => /controller(.)*_spec.rb$/ }
   # == Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:

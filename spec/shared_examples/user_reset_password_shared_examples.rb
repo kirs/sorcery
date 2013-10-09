@@ -76,7 +76,6 @@ shared_examples_for "rails_3_reset_password_model" do
     end
 
     before(:each) do
-      User.reset_column_information
       User.delete_all
     end
 

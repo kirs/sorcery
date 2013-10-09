@@ -1,6 +1,17 @@
 require File.expand_path('../boot', __FILE__)
 
-require 'rails/all'
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "rails/test_unit/railtie"
+
+Bundler.require :default, SORCERY_ORM
+
+begin
+  require "#{SORCERY_ORM}/railtie"
+rescue LoadError
+end
+
+require "sorcery"
 
 module AppRoot
   class Application < Rails::Application
