@@ -352,9 +352,9 @@ describe ApplicationController do
 
   def stub_all_oauth2_requests!
     auth_code       = OAuth2::Strategy::AuthCode.any_instance
-    access_token    = mock(OAuth2::AccessToken)
+    access_token    = double(OAuth2::AccessToken)
     access_token.stub(:token_param=)
-    response        = mock(OAuth2::Response)
+    response        = double(OAuth2::Response)
     response.stub(:body).and_return({
       "id"=>"123",
       "name"=>"Noam Ben Ari",
