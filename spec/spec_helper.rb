@@ -3,6 +3,8 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 ENV["RAILS_ENV"] ||= 'test'
 
+SORCERY_ORM = (ENV["SORCERY_ORM"] || :active_record).to_sym
+
 # require 'simplecov'
 # SimpleCov.root File.join(File.dirname(__FILE__), '..', 'lib')
 # SimpleCov.start
@@ -31,7 +33,7 @@ class TestMailer < ActionMailer::Base;end
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 RSpec.configure do |config|
-  config.include RSpec::Rails::ControllerExampleGroup, :example_group => { :file_path => /controller(.)*_spec.rb$/ }
+  # config.include RSpec::Rails::ControllerExampleGroup, :example_group => { :file_path => /controller(.)*_spec.rb$/ }
   # == Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -42,7 +44,7 @@ RSpec.configure do |config|
   config.mock_with :rspec
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  # config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -51,11 +53,19 @@ RSpec.configure do |config|
 
   #ActiveRecord::Base.logger = Logger.new(STDOUT)
   config.before(:suite) do
-    ActiveRecord::Migrator.migrate("#{Rails.root}/db/migrate/core")
+    if defined?(ActiveRecord)
+      ActiveRecord::Migrator.migrate("#{Rails.root}/db/migrate/core")
+    end
+
+    if defined?(Mongoid)
+      Mongoid.purge!
+    end
   end
 
   config.after(:suite) do
-    ActiveRecord::Migrator.rollback("#{Rails.root}/db/migrate/core")
+    if defined?(ActiveRecord)
+      ActiveRecord::Migrator.rollback("#{Rails.root}/db/migrate/core")
+    end
   end
 
   config.include ::Sorcery::TestHelpers::Internal

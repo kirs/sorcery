@@ -1,8 +1,5 @@
 require 'spec_helper'
 
-require 'rails_app/app/models/user'
-require 'rails_app/app/controllers/application_controller'
-
 describe ApplicationController do
   before(:all) do
     ActiveRecord::Migrator.migrate("#{Rails.root}/db/migrate/activity_logging")

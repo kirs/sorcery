@@ -1,8 +1,5 @@
 require 'spec_helper'
 
-require 'rails_app/app/controllers/application_controller'
-require 'rails_app/app/models/user'
-
 describe ApplicationController do
 
   # ----------------- PLUGIN CONFIGURATION -----------------------
